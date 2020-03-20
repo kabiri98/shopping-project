@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <style>
+  /* Make the image fully responsive */
+  .carousel-inner img {
+      width: 100%;
+      height: 100%;
+  }
+  </style>
+</head>
+<body >
+<div class="row conta .container" >
+    <div id="demo" class="carousel slide col-6 p-5" data-ride="carousel">
+
+    <!-- Indicators -->
+    <ul class="carousel-indicators">
+        <li data-target="#demo" data-slide-to="0" class="active"></li>
+        <li data-target="#demo" data-slide-to="1"></li>
+        <li data-target="#demo" data-slide-to="2"></li>
+    </ul>
+
+    <!-- The slideshow -->
+    <div class="carousel-inner">
+        @foreach($product->photos as $photo)
+        <div class="carousel-item @if($loop->first) active @endif">
+            <img src="{{asset('storage/' . $photo->path)}}" width="1100" height="500">
+        </div>
+        @endforeach
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="carousel-control-prev bg-dark" href="#demo" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next bg-dark" href="#demo" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </a>
+    </div>
+
+    <div class="col-6 pt-5 pr-5" style="direction:rtl;text-align:right;">
+
+        <h1>نام کالا:{{$product->name}}</h1>
+        <br>
+        <h2>توضیحات:{{$product->discription}}</h2>
+        <br>
+        <h3>موجودی:{{$product->inventory}}عدد</h3>
+        <br>
+        <h4>قیمت:{{$product->product_price}}ریال</h4>
+    </div>
+    <div class="btn btn-primary btn-lg active btn-block" >
+
+        <a href="#" onclick="history.go(-1)" class="btn btn-primary btn-lg active btn-block" role="button" aria-pressed="true"> صفحه ی قبل </a>
+
+    </div>
+</div>
+</body>
+</html>

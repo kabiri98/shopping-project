@@ -7,6 +7,13 @@ use App\User;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
+use App\Model\Comments;
+
+use App\Roles;
+use App\Models\Posts;
+use App\Models\Photos;
+use App\Models\Videos;
+
 class UserController extends Controller
 {
     /**
@@ -18,6 +25,9 @@ class UserController extends Controller
 public function __construct()
 {
     $this->middleware('auth');
+   
+  $this->middleware('Role');
+  
 }
 
 
@@ -70,7 +80,7 @@ public function __construct()
     public function edit(User $user,$id)
     {
        $edituser=User::find($id);
-        return view('Admin.users.edit')->with('user',$edituser);
+        return view('edit')->with('user',$edituser);
     }
 
     /**
@@ -80,14 +90,15 @@ public function __construct()
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user,$id)
-    {
-        $user=User::find($id);
-        $user->name=$request->post('name');
-        $user->email=$request->post('email');
-        $user->save();
-        return redirect('table');
-    }
+
+    // public function update(Request $request, User $user,$id)
+    // {
+    //     $user=User::find($id);
+    //     $user->name=$request->post('name');
+    //     $user->email=$request->post('email');
+    //     $user->save();
+    //     return redirect('Admin/users/showuser');
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -99,9 +110,66 @@ public function __construct()
     {
         $user=User::find($id);
         $user->delete();
-        return redirect('table');
+        return redirect('Admin/users/showuser');
 
     }
+
+    //------------------------------for control users-----------------///
+
+    public function showusers() {
+        $users=User::all();
+       return view('Admin.users.showusers')->with('users',$users);
+    }
+     
+        // ----update-----
+        public function updateform(User $user,$id)
+        {
+            $edituser=User::find($id);
+            return view('Admin.users.updateform')->with('user',$edituser);
+        }
+    
+        public function updateuser (Request $request, User $user,$id)
+         {
+            $user=User::find($id);
+            $user->name=$request->post('name');
+            $user->email=$request->post('email');
+            $user->save();
+             $request->session()->flash('success', 'Record successfully updated!');
+             return redirect('admin/users/showusers'); 
+        }
+
+        //  -------insert------
+        public function insertform(){
+            return view ('Admin.users.insertform');
+        }
+         
+         public function insertuser (Request $request) {
+     
+             $user=new User();
+             $user->name=$request->post('name');
+             $user->email=$request->post('email');
+             $user->password=$request->post('password');
+             $user->save();
+             
+             $request->session()->flash('success', 'Record successfully added!');
+             return redirect('admin/users/showusers');
+         }
+        //  -------delete----
+         public function deleteform(User $user,$id){
+             $deleteuser=User::find($id);
+             return view('Admin.users.deleteform')->with('user',$deleteuser);
+         }
+     
+         public function deleteuser (Request $request, User $user,$id) {
+     
+             $user=User::find($id);
+             $user->delete();
+             $request->session()->flash('danger', 'User Deleted!');
+             return redirect('admin/users/showusers');
+         }
+
+
+    
 
 // =====================function haye datatable===================================================
 

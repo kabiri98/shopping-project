@@ -37,7 +37,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a href="{{'dash1'}}" class="nav-link">داشبوردها</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-      <a href="{{'contactus'}}" class="nav-link">تماس با ما</a>
+      <a href="{{'contact'}}" class="nav-link">تماس با ما</a>
       </li>
     </ul>
 
@@ -276,7 +276,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <h6 class="card-title mb-2 text-bold">عنوان کارت ویژه</h6>
 
                 <p class="card-text">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است </p>
-                <a href="#" class="btn btn-primary">برو به صفحه ایکس</a>
+                <a href="{{url('admin/product/showproduct')}}" class="btn btn-primary">مدیریت محصولات</a>
+
               </div>
             </div>
 

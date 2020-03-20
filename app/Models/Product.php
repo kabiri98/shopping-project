@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-
+    protected $fillable = [
+        'name', 'discription', 'product_price',' inventory','created_at','updated_at' ,
+    ];
     public function Discount(){
         return $this->belongsTo('App\Models\Discount');
     }
@@ -36,4 +38,16 @@ class Product extends Model
     }
 
 
+    public function photos()
+    {
+        return $this->morphMany("App\Models\Photos","imageable");
+    }
+    public function tags()
+    {
+        return $this->morphtoMany("App\Models\Tags","taggable");
+    }
 }
+
+
+
+
